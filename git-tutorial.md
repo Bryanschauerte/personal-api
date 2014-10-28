@@ -45,71 +45,95 @@ Once a commit is created it can never be changed.  It is possible (and not uncom
 
 Commits are represented by guids, but usually you'll only see the first few characters.  As long as it's enough of the hash to be unique it's enough.  Commit hashes have no order, but they always have a parent commit.  Here are 3 example commits:
 
+```
 abc - - - abd - - - abe
+```
 
 The commit `abe` represents all changes since it's parent commit, `abd`.  It doesn't contain any other data, so it's very small.  Git can do this because commits are immutable.  abd can never change, so abe does not need to capture anything more than the hash of it's parent.  If a file has not changed since the repo was created, it will always be identified by that initial commit's blob.  If it's changed, only the changes are captured in those later commits.
 
 Now let's look at branches.  In git, a branch is a pointer to a commit.  Creating a branch is as fast as writing one commit's hash to a file.  Suppose we have one branched called master:
 
+```
 abc - - - abd - - - abe <-- master
+```
 
 If we commit again, master automatically is rewritten to the new commit, since it was the active branch:
 
+```
 abc - - - abd - - - abe - - - abf <-- master
+```
 
 You can name a branch almost anything, but there's one magic branch that's always there which git controls for you:
 
+```
 abc - - - abd - - - abe - - - abf <-- master <-- HEAD
+```
 
 HEAD is a special branch.  All it is is another pointer, but instead of referring to a commit, it usually refers to another branch.  HEAD is the branch git uses to keep track of the current working directory.  The `git checkout [name]` command just writes the specified branch name as the HEAD pointer.  HEAD can still point directly to a commit though. `git checkout abe` will point HEAD back to that commit (and update the files in the current working directory):
 
+```
 abc - - - abd - - - abe - - - abf <-- master
                               ^-- HEAD
+```
 
 This is called a "detached HEAD" state.  If you see warnings about being in a detached HEAD state it simply means HEAD is not pointing to a branch.  This is ok if you know why you're in this state, but isn't something you want to ignore if you didn't mean to do it.  Suppose we commit now:
 
+```
 abc - - - abd - - - abe - - - abf <-- master
                               \ 
                                 abg <-- HEAD
+```
 
 And then `git checkout master`:
 
+```
 abc - - - abd - - - abe - - - abf <-- master <-- HEAD
                               \ 
                                 abg
+```
 
 The commit `abg` is now all on its own with no branch justifying it's existance.  The only way to get to it is to check it out by name: `git checkout abg`.  Git will garbage collect commits like these, and they don't show up in normal logs.  Just make sure you never commit in this state and you'll be safe.  If you need to commit (like for a patch), create a branch: `git checkout abg && git checkout -b patch`:
 
+```
 abc - - - abd - - - abe - - - abf <-- master
                               \ 
                                 abg <-- patch <-- HEAD
+```
 
 Let's merge abg: `git checkout master && git merge patch`:
 
+```
 abc - - - abd - - - abe - - - abf - - - abh <-- master <-- HEAD
                               \                      /   ^-- patch
                                 abg - - - - - -
+```
 
 And now we don't need our patch pointer anymore, so we can delete that branch: `git branch -d patch`:
 
+```
 abc - - - abd - - - abe - - - abf - - - abh <-- master <-- HEAD
                               \                      /
                                 abg - - - - - -
+```
 
 The merge we just did is the most complicated kind.  There were changes on both sides, so the merge created a new commit to mimic the work done in the patch branch on the master branch.
 
 Let's look at a more common example using a short-lived feature branch:
 
+```
 abc - - - abd - - - abe <-- master
                               \ 
                                 abf <-- feature-1 <-- HEAD
+```
 
 Here we branched master to create feature-1 and then created a new commit on that branch.  Let's merge it: `git checkout master && git merge feature-1`
 
+```
 abc - - - abd - - - abe
                               \ 
                                 abf <-- master <-- HEAD
                                   ^-- feature-1
+```
 
 This is called a fast-foward merge, and git will automatically detect and perform this merge when possible.  Git realized it didn't need to do anything and simply moved the master branch to point to abf.  This is nice for a few reasons:
 
@@ -119,15 +143,20 @@ This is called a fast-foward merge, and git will automatically detect and perfor
 
 There's a 3rd type of merge called a rebase.  Suppose there had been another change on master (likely from someone else committing since you created your feature branch):
 
+```
 abc - - - abd - - - abe - - - abg <-- master
                               \ 
                                 abf <-- feature-1 <-- HEAD
+```
 
 `git rebase master` (important!! don't use this until you've finished the section on remotes!):
 
+
+```
 abc - - - abd - - - abe - - - abg <-- master
                                            \ 
                                              abh <-- feature-1 <-- HEAD
+```
 
 This destroyed the commit `abf`, created a new one, `abh` with `abg` as it's parent, with all the same changes that used to be in `abf`, and then pointed feature-1 to the new commit.  This is one of the ways you can rewrite history in git.  feature-1 can now be merged back to master using a fast-forward merge!
 
