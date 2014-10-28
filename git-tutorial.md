@@ -1,5 +1,5 @@
 And now ~~an intro to~~ complete tutorial for Git!
-===================
+--------------------
 
 It's completely possible to use git without knowing these things (especially with some of the guis), but a glimpse into the internals will actually make it a lot easier to use and remember why things are the way they are, even if it looks confusing at first.  It's actually not that bad!
 
@@ -36,6 +36,7 @@ Let's look at the operations you will normally run on your repos.  Don't feel li
 
 
 Commits and Branches
+--------------------
 
 As I mentioned earlier, a commit in git is immutable.  It consists of a few things:
 
@@ -165,6 +166,7 @@ This destroyed the commit `abf`, created a new one, `abh` with `abg` as it's par
 
 
 Remotes
+--------------------
 
 In git, a remote is another copy of the same repo.  It could be another folder on your computer where you've copied the code, a team member's computer, or (almost always) a server like github.  The `git clone [url]` command actually does this:
 
@@ -190,6 +192,7 @@ Pushing changes to a remote is pretty simple, but there are a few rules:
 
 
 Staging Area
+--------------------
 
 Let's go back to `git add` for a minute.  `git add` stages changes in preparation for the next commit.  `git stage` is actually an alias for `git add` if that's easier to remember.  This is the same as a real commit, except that it hasn't been added to the commit log yet.  It's important to remember that adding files actually means "the current version of the file".  In TFS the file as a whole is either included or excluded, and when you commit it will read the file at that time and save whatever is there.  In git you are adding changes, not files.  You could change lines 10 and 13, but only add/stage the change on line 10.  Changing line 10 again would be seen as a new change which would need to be added to the staging area again to be included in the checkin.
 
@@ -219,10 +222,12 @@ Both the staging area and any untracked commits are separate from the active bra
 
 
 Tags
+--------------------
 
 Tags are pointers to commits, just like branches, but they never change once created.  You can think of branches as the labels tracking active dev paths, while tags mark significant points in time (usually releases/versions).  You can checkout, diff, and merge tags just like you can with any branch or commit.
 
 
 Congratulations!
+--------------------
 
 You're now a git master! (get it?....)  If you get stuck with any terms or aren't sure how to do something just ask me or check out gitready.com or www.atlassian.com/git/tutorials.  They've got great tutorials for every command as well as a lot of the concepts.
