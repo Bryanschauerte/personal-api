@@ -230,4 +230,4 @@ Tags are pointers to commits, just like branches, but they never change once cre
 Congratulations!
 --------------------
 
-You're now a git master! (get it?....)  If you get stuck with any terms or aren't sure how to do something just ask me or check out [git ready](https://gitready.com) or [Atlassian's Git tutorials](https://www.atlassian.com/git/tutorials).  They've got great tutorials for every command as well as a lot of the concepts.
+You're now a git master! (get it?....)  If you get stuck with any terms or aren't sure how to do something just ask me or check out [git ready](http://gitready.com) or [Atlassian's Git tutorials](https://www.atlassian.com/git/tutorials).  They've got great tutorials for every command as well as a lot of the concepts.
