@@ -73,7 +73,9 @@ app.get('/occupations/latest', function(req, res) {
 });
 ///
 
+//? querry, skills=:statewhatTheKeywillbe
 
+//bellow is a req.query key=value
 
 app.route('/skills?')
 .get(function(req, res){

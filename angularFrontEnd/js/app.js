@@ -1,15 +1,18 @@
 var app = angular.module('myProfile',['ngRoute'])
-.config(function($routeProvider){
+app.config(function($routeProvider){
 
   $routeProvider
   .when('/', {
-    templateUrl:"/views/homePage.html"
+    templateUrl:"/views/homePage.html",
+    controller: 'mainCtrl'
   })
   .when('/me', {
-templateUrl: "/views/personalPage.html"
+    templateUrl: "/views/personalPage.html",
+    controller: 'mainCtrl'
   })
   .when('/skills',{
-    templateUrl: "/views/skills.html"
+    templateUrl: "/views/skills.html",
+    controller: 'mainCtrl'
   })
 
   .otherwise({redirectTo: '/'});

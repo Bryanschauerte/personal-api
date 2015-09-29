@@ -5,7 +5,7 @@ var app = angular.module('myProfile').service('dataService',function($http, $q){
     var deferred= $q.defer();
     $http({
       method:'GET',
-      url: 'localhost:5555/occupations'
+      url: 'http://localhost:5555/occupations'
     }).then(function(successResponse){
       var parsedResponse = successResponse.data.occupatons;
 
@@ -18,7 +18,7 @@ var app = angular.module('myProfile').service('dataService',function($http, $q){
 
     $http({
       method: "GET",
-      url: "localhost:5555/hobbies"
+      url: "http://localhost:5555/hobbies"
     }).then(function(res){
       var parsedResponse = res.data;
       deferred.resolve(parsedResponse);
@@ -30,7 +30,7 @@ var app = angular.module('myProfile').service('dataService',function($http, $q){
   this.getSkills = function(){
     var deferred = $q.defer();
 
-    $http({method: "GET", url:"localhost:5555/skills"}).then(function(res){
+    $http({method: "GET", url:"http://localhost:5555/skills"}).then(function(res){
       var parsedResponse = res.data.skills
       deferred.resolve(parsedResponse);
     });
@@ -39,7 +39,7 @@ var app = angular.module('myProfile').service('dataService',function($http, $q){
   }
   this.getName = function(){
     var defered = $q.defer();
-    $http({method: "GET", url: "localhost:5555/name"}).then(function(res){
+    $http({method: "GET", url: "http://localhost:5555/name"}).then(function(res){
       var parsedResponse = res.data;
       defered.resolve(parsedResponse);
     });
@@ -48,7 +48,7 @@ var app = angular.module('myProfile').service('dataService',function($http, $q){
   }
   this.getLocation = function(){
     var defered = $q.defer();
-    $http({method:"GET", url: "localhost:555/location"}).then(function(res){
+    $http({method:"GET", url: "http://localhost:555/location"}).then(function(res){
       var parsedResponse = res.data;
       defered.resolve(parsedResponse);
     });
